@@ -124,6 +124,30 @@ Failed to load resource: net::ERR_FAILED
     });
 }
 
+// Fetch RANDOM meal from API
+// if we already searched and there are columns of meal results then we want to clear those
+// we also want to clear up any headings from past search results
+function getRandomMeal() {
+  // Clear meals and headings (by setting innerHTMl of these sections to nothing)
+  mealsEl.innerHTML = "";
+  resultHeading.innerHTML = "";
+
+  // Make a request for a random meal
+  // in the API dcumentation they provide the endpoint for a random meal
+  // www.themealdb.com/api/json/v1/1/random.php but again don't forget to add 'https://' to it or it doesn't work!!
+
+  fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+    // get the promise back
+    .then((res) => res.json())
+    // again it will give us back an array even though it's one meal
+    // so we'll create a variable and set it to data.meals and we want the first and only one i.e [0]
+    .then((data) => {
+      const meal = data.meals[0];
+      // then call the addMealToDom function just like we do when we search for a mela
+      addMealToDom(meal);
+    });
+}
+
 // Add meal to DOM
 function addMealToDom(meal) {
   // this is the part where the bit with the ingredients is tricky
@@ -184,12 +208,13 @@ function addMealToDom(meal) {
   `;
 }
 
-
-
-
 // EVENT LISTENERS
 // need an event listener for when we search - this will call the searchMeal function above
 submit.addEventListener("submit", searchMeal);
+
+// Also need an event listener for the 'random meal' button!
+// this will be on 'click' instead as it's not a submit button
+random.addEventListener("click", getRandomMeal);
 
 /* Now need to be able to cick on the individual meal and get the recipe instructions show for it below. 
 This will be tricky because we need to add an event listener to each one and we need to get the meal-ID.
