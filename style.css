@@ -1,0 +1,233 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #2d2013;
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+}
+
+.container {
+  /* want everything in the middle so setting margin to auto */
+  margin: auto;
+  max-width: 800px;
+  /* displaying anything inside here as flex items */
+  display: flex;
+  /* we wnant the flex direction to be a column */
+  /* this makes the search bar go under the heading rather than to the side */
+  flex-direction: column;
+  /* centering everything with these align-items, justify-content and text-align: */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flex {
+  /* setting this to flex will align things horizontally i.e. the search bar, search icon
+    and random icon will now be all next to each other */
+  display: flex;
+}
+
+/* to make the search bar to the end of the icons look like one single entity and with rounded corners: */
+/* input and button will have similar styling */
+input,
+button {
+  border: 1px solid #dedede;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-size: 14px;
+  /* 8px padding top and bottom, 10px padding left and right */
+  padding: 8px 10px;
+  margin: 0;
+}
+
+/* stretching the width of the input field so the placeholder text can fit properly without getting cut off 
+- we'll take the input that has the type attribute of 'text' and set the width to 300px  */
+input[type="text"] {
+  width: 300px;
+}
+
+/* now working on the search button */
+.search-btn {
+  cursor: pointer;
+  /* getting rid of the border on the side that touches the text input field */
+  border-left: 0;
+  /* getting rid of the corners on icon helps it look more seamless and like one single entity with the input field */
+  border-radius: 0;
+  /* but adding corners on the end of this so it looks like this is where the single entity ends and isn't joined to the randomiser button */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* now working on the randomiser button */
+/* want to push it over slightly and rounded corners on all sides so it looks separate */
+.random-btn {
+  cursor: pointer;
+  margin-left: 10px;
+  /* only need to mention the 'right' side here because in the 'input, btn' styling we already have it for the left */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* everything in the meals div (i.e. the returned search results) will be a grid item, 
+ meaning each specific meal */
+.meals {
+  display: grid;
+  /* now setting grid-template columns - want 4 columns - so will set to repeat 4 times, 1 fraction  */
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+/* each individual meal has a class of 'meal' because in the js when we looped through the array and output '<div class="meal">' in the inner html so will style this */
+
+.meal {
+  cursor: pointer;
+  /* the 'meal-info' div class in the js i.e.  <div class="meal-info" data-mealID="${meal.idMeal}"> is inside of the 'meal' div and we would want to position that 
+  meal-info absolute so the h3 heading is in the middle so have to make the 'meal' class relative to do this */
+  position: relative;
+  /* making the container smaller */
+  height: 180px;
+  width: 180px;
+  text-align: center;
+  /* but now the images are all weird because they're too big so we need to resize those */
+}
+
+.meal img {
+  /* setting width and height to be 100% of its container i.e. 180px both ways */
+  width: 100%;
+  height: 100%;
+  border: 4px #fff solid;
+  border-radius: 2px;
+}
+
+/* we want the 'meal-info' div which contains the h3 to be inside the image when we hover instead of underneath it: */
+.meal-info {
+  position: absolute;
+  /* the below makes it start from the top corner of the 'meal' div */
+  top: 0;
+  left: 0;
+  /* setting height and width to 100% so the div covers the whole thing */
+  height: 100%;
+  width: 100%;
+  /* will set a faded background to it */
+  background: rgba(0, 0, 0, 0.7);
+  /* to make the h3 inside of this div positioned can turn the div into a flex box so the h3 is a flex item we can do align-items on which will make it
+  centered vertically */
+  display: flex;
+  align-items: center;
+  /* also centering the h3 horizontally */
+  justify-content: center;
+  /* transition on the opacity to give a smooth effect later when we add the next hover property */
+  transition: opacity 0.2s ease-in;
+  /* so now we can see it has a darker background with the text showing but we only want this to appear when we hover so INITIALLY we're going to set
+  the opacity to '0'!!! This will 'hide' this darker background and text */
+  opacity: 0;
+}
+
+/* now to add the hover effect so we can see the dark background and text set in the meal-info above: */
+/* when we hover over 'meal' we want the 'meal-info' -- this initially has an opacity of 0 and now we want to set it to 0 when we hover over it */
+.meal:hover .meal-info {
+  opacity: 1;
+}
+
+/* STYLING THE 'SINGLE MEAL' SELECTION (THE INDIVIDUAL ONE YOU CLICKED ON)*/
+.single-meal {
+  margin: 30px auto;
+  /* setting width to 70% to make this a bit thinner */
+  width: 70%;
+}
+
+.single-meal img {
+  /* making image smaller */
+  width: 300px;
+  margin: 15px;
+  border: 4px #fff solid;
+  border-radius: 2px;
+}
+
+/* Styling the single-meal-info section where it says the category and area */
+.single-meal-info {
+  margin: 20px;
+  padding: 10px;
+  border: 2px #e09850 dashed;
+  border-radius: 5px;
+}
+
+/* Styling the paragraph that contains the recipe instructions as it's a bit squished together and cramped looking*/
+.single-meal p {
+  margin: 0;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+/* Styling the ul which have the ingredients and measurements */
+.single-meal ul {
+  padding-left: 0;
+  /* taking away the bullet points */
+  list-style-type: none;
+}
+
+/* Now styling each individual 'li' */
+
+.single-meal ul li {
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  background-color: #fff;
+  /* displaying as an inline-block so the ingredients will be side by side instead of stacked on one below each other */
+  display: inline-block;
+  color: #2d2013;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px;
+  margin: 0 5px 5px 0;
+}
+
+/* ADDING RESPONSIVENESS */
+/* The input field is 300px at all screen sides but we want this to shrink with the screen size */
+/* we want it to shrink if the screen is a max width of 500px so will add a media query */
+/* will make a few media queries for different screen sizes */
+
+/* screen sizes of 800px and up, 700px and 500px */
+/* .meals is the results grid container - to make this responsive on this smaller screen size will change the 
+grid-template-columns simply from 4 columns to 3 columns */
+@media (max-width: 800px) {
+  .meals {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* for an even smaller screen size of 700px, we'll make it 2 columns */
+@media (max-width: 700px) {
+  .meals {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* we also want to change the width of the actual individual meal square  - remember the default of this is 180px. When
+the screen is shrunk to 700px though we want these squares to look a bit bigger as it will start to look weird on smaller screens */
+  .meal {
+    height: 200px;
+    width: 200px;
+  }
+}
+
+/* at 500px, the input field will be 100% of its container - so it will look smaller when we shrink the screen
+and hit 500px */
+/* when it's 500px, we simply just want 1 column so 1fr */
+@media (max-width: 500px) {
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .meals {
+    grid-template-columns: 1fr;
+  }
+
+  /* on very small sceens we want the width of the actual individual meal square to take up almost the whole thing, so for
+  a screen size that's 500px we will make these individual squares be 300px */
+  .meal {
+    height: 300px;
+    width: 300px;
+  }
+}

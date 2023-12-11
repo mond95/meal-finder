@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Finder</title>
+    <!-- putting in this link from font awesome - will allow us to put icons in when we put their classes etc -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- container will wrap around everything -->
+    <div class="container">
+      <h1>Meal Finder</h1>
+      <!-- div with a class of flex as we want everything in it to align horizontally, which
+    is going to be the form which will also have a class of flex -->
+      <div class="flex">
+        <!-- can do emmet abbreviation 'form.flex#submit' and tab -->
+        <form class="flex" id="submit">
+          <!-- we will add an id to grab this with javascript -->
+          <input
+            type="text"
+            id="search"
+            placeholder="Search for meals or keywords"
+          />
+          <button class="search-btn" type="submit">
+            <!-- giving it a magnifying glass icon - this comes from font awesome!: https://fontawesome.com/v4/icon/search -->
+            <!-- can use emmet abbreviation 'i.fas.fa-search' to add 2 classes - these are the classes font awesome says we have to put to
+            display their search icon (see link) -->
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        <!-- outside of the form but still within the flex class, going to add the randomiser butto -->
+        <!-- giving it a 'random' icon - this comes from font awesome! https://fontawesome.com/v4/icon/random-->
+        <button class="random-btn" id="random">
+          <i class="fas fa-random"></i>
+        </button>
+      </div>
+
+      <!-- then outside of the flex but still within our container, we want our placeholders that we're going
+    to fill in with javascript - the html is generated in the javascript  -->
+      <!-- inside of this result-heading div will say e.g. 'search results for chicken' etc -- it'll be dynamic -->
+      <div id="result-heading"></div>
+      <div id="meals" class="meals"></div>
+      <div id="single-meal"></div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
